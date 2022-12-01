@@ -8,12 +8,16 @@ public class TestDb {
     Connection connection = null;
 
     TestDb() {
-
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public TestDb connect() {
         try {
-            String url = "jdbc:sqlite:C:\\Users\\Maksymilian_Hildt\\Onedrive - Nord Anglia Education\\NAE - Files\\Desktop\\JavaWorkSchool\\SQLITE\\test.db";
+            String url = "jdbc:sqlite:C:\\Users\\Maksymilian_Hildt\\Onedrive - Nord Anglia Education\\NAE - Files\\Desktop\\ManagerIA-main\\SQLITE\\test.db";
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been established.");
         } catch (SQLException e) {
@@ -43,15 +47,10 @@ public class TestDb {
         }
     }
 
-    public ResultSet query(String sql) {
-        try {
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-            ResultSet resultSet = statement.getResultSet();
-            return resultSet;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    public ResultSet query(String sql) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.execute(sql);
+        ResultSet resultSet = statement.getResultSet();
+        return resultSet;
     }
 }

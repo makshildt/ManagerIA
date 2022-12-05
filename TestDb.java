@@ -17,7 +17,7 @@ public class TestDb {
 
     public TestDb connect() {
         try {
-            String url = "jdbc:sqlite:C:\\Users\\Maksymilian_Hildt\\Onedrive - Nord Anglia Education\\NAE - Files\\Desktop\\ManagerIA-main\\SQLITE\\test.db";
+            String url = "jdbc:sqlite:C:\\Users\\maksh\\OneDrive\\Pulpit\\ManagerIA-main\\SQLITE\\test.db";
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been established.");
         } catch (SQLException e) {
@@ -37,7 +37,6 @@ public class TestDb {
         }
     }
 
-    
     public void execute(String sql) {
         try {
             Statement statement = connection.createStatement();
@@ -53,4 +52,17 @@ public class TestDb {
         ResultSet resultSet = statement.getResultSet();
         return resultSet;
     }
+
+    //NEW BY COPILOT
+
+    public void update(String string) {
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(string);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    
 }

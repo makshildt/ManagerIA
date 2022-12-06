@@ -23,7 +23,8 @@ public class ManagerIA {
         page1 = new JPanel();
         tabbedPane.addTab("Teams", new DisplayTeamPage());
         tabbedPane.addTab("Add Teams", new AddTeamsPage());
-        tabbedPane.addTab("Add Employees", new AddEmployeesPage());
+        Pages.addEmployeesPage = new AddEmployeesPage();
+        tabbedPane.addTab("Add Employees", Pages.addEmployeesPage);
         tabbedPane.addTab("Add Tasks & Deadlines", new AddTasksDeadlinesPage());
         tabbedPane.addTab("Visual Representation", new VisualRepresentation());
     }

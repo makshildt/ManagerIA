@@ -17,7 +17,7 @@ public class TestDb {
 
     public TestDb connect() {
         try {
-            String url = "jdbc:sqlite:C:\\Users\\maksh\\OneDrive\\Pulpit\\ManagerIA-main\\SQLITE\\test.db";
+            String url = "jdbc:sqlite:C:\\Users\\Maksymilian_Hildt\\Onedrive - Nord Anglia Education\\NAE - Files\\Desktop\\ManagerIA-main (1)\\ManagerIA-main\\SQLITE\\test.sqlite";
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been established.");
         } catch (SQLException e) {

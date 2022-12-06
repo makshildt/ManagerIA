@@ -20,6 +20,7 @@ public class AddTeamsPage extends JPanel {
                 db.update("INSERT INTO teams (team_name) VALUES ('" + textField.getText() + "')");
                 db.disconnect();
                 textField.setText("");
+                Pages.addEmployeesPage.updateTeamsComboBox();
             }
         });
     }

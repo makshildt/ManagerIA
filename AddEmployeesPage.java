@@ -13,16 +13,20 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 public class AddEmployeesPage extends JPanel {
+    JComboBox teamComboBox;
+
     AddEmployeesPage() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JTextField id = new JTextField(10);
-        JTextField firstName = new JTextField(10);
-        JTextField lastName = new JTextField(10);
-        JTextField email = new JTextField(10);
-        JTextField role = new JTextField(10);
-        JComboBox team = new JComboBox();
-
+        //JTextField id = new JTextField(10);
+        updateTeamsComboBox();
+        JTextField firstName = addTextField("First Name: ");
+        JTextField lastName = addTextField("Last Name: ");
+        JTextField dob = addTextField("Year of Birth: ");
+        JTextField email = addTextField("Email: ");
+        JTextField role = addTextField("Role: ");
+        teamComboBox = new JComboBox();
+        addField("Team", teamComboBox);
 
         // JTextField id = addTextField("ID: ");
         // addTextField("First Name: ");
@@ -38,11 +42,12 @@ public class AddEmployeesPage extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 //System.out.println("Add Teams Page Submit Button Clicked");
                 TestDb db = new TestDb().connect();
-                db.update("INSERT INTO users (user_id, first_name, last_name, email, role) VALUES ('" + id.getText() + "', '" + firstName.getText() + "', '" + lastName.getText() + "', '" + email.getText() + "', '" + role.getText() + "')");
+                db.update("INSERT INTO users (first_name, last_name, dob, email, role) VALUES ('" + firstName.getText() + "', '" + lastName.getText() + "', '" + dob.getText() + "', '" + email.getText() + "', '" + role.getText() + "')");
                 db.disconnect();
-                id.setText("");
+                //id.setText("");
                 firstName.setText("");
                 lastName.setText("");
+                dob.setText("");
                 email.setText("");
                 role.setText("");
                 //team.setSelectedItem("");
@@ -50,19 +55,21 @@ public class AddEmployeesPage extends JPanel {
         });
     }
 
-    // private JTextField addTextField(String name) {
-    //     addField(name, new JTextField(10));
-    // }
+    private JTextField addTextField(String name) {
+        JTextField textField = new JTextField(10);
+        addField(name, textField);
+        return textField;
+    }
 
-    // private void addField(String name, JComponent component) {
-    //     JPanel panel = new JPanel();
-    //     panel.add(new JLabel(name));
-    //     panel.add(component);
-    //     add(panel);
-    // }
+    private void addField(String name, JComponent component) {
+        JPanel panel = new JPanel();
+        panel.add(new JLabel(name));
+        panel.add(component);
+        add(panel);
+    }
 
-    private JComboBox createTeamsComboBox() {
-        JComboBox teamComboBox = new JComboBox();
+    void updateTeamsComboBox() {
+        teamComboBox.removeAllItems();
         TestDb db = new TestDb().connect();
         try {
             ResultSet resultSet = db.query("SELECT team_name FROM teams");
@@ -72,6 +79,5 @@ public class AddEmployeesPage extends JPanel {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return teamComboBox;
     }
 }
